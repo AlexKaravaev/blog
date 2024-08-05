@@ -1,0 +1,292 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+    @property --a { /* control the gradient rotation (no need to update) */
+      syntax: "<angle>";
+      initial-value: 45deg; 
+      inherits: true;
+    }
+    @property --r {
+      syntax: "<angle>";
+      initial-value: 5deg; /* control the image rotation */
+      inherits: true;
+    }
+    @property --p { /* control the color stops of the gradient (no need to update) */
+      syntax: "<percentage>";
+      initial-value: 0%;
+      inherits: true;
+    }
+
+    a.under {
+      position: relative;
+      color: #ffffff;
+      text-decoration: none;
+      border-bottom: 1px solid #ffffff;
+      border-bottom-style: dotted;
+    }
+
+    a.under::after {
+      content: "";
+      position: absolute;
+      left:50%;
+      right: 50%;
+      bottom: 0;
+      border-bottom: 1px solid #ffffff;
+      transition: left .25s, right .25s;
+    }
+
+    a.under:hover::after,
+    a.under:focus::after {
+      left: 15%;
+      right: 15%;
+    }
+    body {
+      @apply bg-black scroll-smooth focus:scroll-auto;
+    }
+    img {
+      --c: #bec1c9; /* the main coloration of the rotating gradient */
+      width: 75; /* the size of the image*/
+      aspect-ratio: 1;
+      border-radius: 25px;
+      border: 4px solid #0000; /* the thickness for the rotating gradient */
+      padding: 10px; /* the gap */
+      background: 
+        conic-gradient(from var(--a),
+          #0000 calc(30% - var(--p)),
+          var(--c) calc(50% - var(--p)) calc(50% + var(--p)),
+          #0000 calc(70% + var(--p))) border-box;
+      --g: linear-gradient(#000 0 0);
+      -webkit-mask: 
+        var(--g),var(--g) padding-box,
+        conic-gradient(from var(--a),
+          #000d calc(30% - var(--p)),
+          #000  calc(50% - var(--p)) calc(50% + var(--p)),
+          #000d calc(70% + var(--p))) content-box;
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      --_t: perspective(450px); /* the bigger, the better */
+      animation: 4s linear infinite;
+      animation-name: a,r;
+      transition: --p .5s,--r .4s;
+      cursor: pointer;
+    }
+    img:hover {
+      --p: 50%;
+      --r: 0deg;
+      animation-play-state: paused;
+    }
+    @keyframes a {
+      to {--a: 405deg}
+    }
+    
+    @keyframes r{
+      0%,
+      100%  {transform: var(--_t) rotate3d( 1, 1,0,var(--r))}
+      12.5% {transform: var(--_t) rotate3d( 0, 1,0,var(--r))}
+      25%   {transform: var(--_t) rotate3d(-1, 1,0,var(--r))}
+      37.5% {transform: var(--_t) rotate3d(-1, 0,0,var(--r))}
+      50%   {transform: var(--_t) rotate3d(-1,-1,0,var(--r))}
+      62.5% {transform: var(--_t) rotate3d( 0,-1,0,var(--r))}
+      75%   {transform: var(--_t) rotate3d( 1,-1,0,var(--r))}
+      87.5% {transform: var(--_t) rotate3d( 1, 0,0,var(--r))}
+    }
+    
+    .tree {
+      --spacing: 1.5rem;
+      --radius: 10px;
+    }
+    
+    .tree li {
+      display: block;
+      position: relative;
+      padding-left: calc(2 * var(--spacing) - var(--radius) - 2px);
+    }
+    
+    .tree ul {
+      margin-left: calc(var(--radius) - var(--spacing));
+      padding-left: 0;
+    }
+    
+    .tree ul li {
+      border-left: 2px solid #ddd;
+    }
+    
+    .tree ul li:last-child {
+      border-color: transparent;
+    }
+    
+    .tree ul li::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: calc(var(--spacing) / -2);
+      left: -2px;
+      width: calc(var(--spacing) + 2px);
+      height: calc(var(--spacing) + 1px);
+      border: solid #ddd;
+      border-width: 0 0 2px 2px;
+    }
+    
+    .tree summary {
+      display: block;
+      cursor: pointer;
+    }
+    
+    .tree summary::marker,
+    .tree summary::-webkit-details-marker {
+      display: none;
+    }
+    
+    .tree summary:focus {
+      outline: none;
+    }
+    
+    .tree summary:focus-visible {
+      outline: 1px dotted #fff;
+    }
+    
+    .tree li::after,
+    .tree summary::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: calc(var(--spacing) / 2 - var(--radius));
+      left: calc(var(--spacing) - var(--radius) - 1px);
+      width: calc(2 * var(--radius));
+      height: calc(2 * var(--radius));
+      border-radius: 50%;
+      background: #ddd;
+    }
+    
+    .tree summary::before {
+      z-index: 1;
+      background: #fff url('/images/expand-collapse.svg') 0 0;
+    }
+    
+    .tree details[open] > summary::before {
+      background-position: calc(-2 * var(--radius)) 0;
+    }
+      
+    html {
+        font-family: "Eurostile", system-ui, sans-serif;
+        @apply scroll-smooth;
+      }
+    text {
+      @apply text-gray-100 text-lg;
+    }
+
+    p {
+      @apply text-gray-100 text-lg;
+    }
+
+    li {
+      @apply text-gray-100 text-lg;
+    }
+
+    ul {
+      @apply text-gray-100 text-lg;
+    }
+    .text-box {
+      @apply flex items-center justify-center bg-transparent border border-white rounded-lg text-white font-sans text-lg;
+      width: 15vw; /* Relative to viewport width */
+      height: 10vh; /* Relative to viewport height */
+      position: absolute;
+    }
+    .glow {
+      transition: filter 0.3s ease-in-out;
+    }
+
+    .glow-active {
+        filter: drop-shadow(0 0 10px #ffffff);
+    }
+
+    @font-face {
+        font-family: 'Eurostile';
+        font-weight: 100;
+        font-size: 1.2rem;
+        src: url("/fonts/neopixel.otf");
+      }
+    @font-face {
+        font-family: 'JetBrains Mono';
+        src: url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff2/JetBrainsMono-Bold-Italic.woff2') format('woff2'),
+          url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff/JetBrainsMono-Bold-Italic.woff') format('woff');
+        font-weight: 700;
+        font-style: italic;
+        font-display: swap;
+      }
+      
+      @font-face {
+        font-family: 'JetBrains Mono';
+        src: url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff2/JetBrainsMono-Bold.woff2') format('woff2'),
+          url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff/JetBrainsMono-Bold.woff') format('woff');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+      
+      @font-face {
+        font-family: 'JetBrains Mono';
+        src: url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff2/JetBrainsMono-ExtraBold-Italic.woff2') format('woff2'),
+          url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff/JetBrainsMono-ExtraBold-Italic.woff') format('woff');
+        font-weight: 800;
+        font-style: italic;
+        font-display: swap;
+      }
+      
+      @font-face {
+        font-family: 'JetBrains Mono';
+        src: url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff2/JetBrainsMono-ExtraBold.woff2') format('woff2'),
+          url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff/JetBrainsMono-ExtraBold.woff') format('woff');
+        font-weight: 800;
+        font-style: normal;
+        font-display: swap;
+      }
+      
+      @font-face {
+        font-family: 'JetBrains Mono';
+        src: url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff2/JetBrainsMono-Italic.woff2') format('woff2'),
+          url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff/JetBrainsMono-Italic.woff') format('woff');
+        font-weight: 400;
+        font-style: italic;
+        font-display: swap;
+      }
+      
+      @font-face {
+        font-family: 'JetBrains Mono';
+        src: url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff2/JetBrainsMono-Medium-Italic.woff2') format('woff2'),
+          url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff/JetBrainsMono-Medium-Italic.woff') format('woff');
+        font-weight: 500;
+        font-style: italic;
+        font-display: swap;
+      }
+      
+      @font-face {
+        font-family: 'JetBrains Mono';
+        src: url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff2/JetBrainsMono-Medium.woff2') format('woff2'),
+          url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff/JetBrainsMono-Medium.woff') format('woff');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+      }
+      
+      @font-face {
+        font-family: 'JetBrains Mono';
+        src: url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff2/JetBrainsMono-Regular.woff2') format('woff2'),
+          url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff/JetBrainsMono-Regular.woff') format('woff');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      .custom-glyph-planet {
+        font-family: 'Eurostile';
+        font-size: 50px;
+        display: inline-block;
+        /* Use the appropriate glyph index here */
+        content: '\0201'; /* Replace XX with the actual glyph index */
+    }
+    
+}
