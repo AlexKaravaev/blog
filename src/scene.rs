@@ -2,6 +2,7 @@ use leptos::logging::log;
 use three_d::*;
 use wasm_bindgen::JsCast;
 use std::panic;
+use std::rc::Rc;
 
 #[cfg(target_arch = "wasm32")]
 pub async fn scene() {
@@ -26,6 +27,19 @@ pub async fn scene() {
     let event_loop = winit::event_loop::EventLoop::new();
     log!("Enter");
 
+    // Window resizing logic taken from https://github.com/michaelkirk/abstreet/commit/7b99335cd5325d455140c7595bf0ef3ccdaf93e0
+    let get_full_size = || {
+        // TODO Not sure how to get scrollbar dims
+        let scrollbars = 30.0;
+        let win = web_sys::window().unwrap();
+        // `inner_width` corresponds to the browser's `self.innerWidth` function, which are in
+        // Logical, not Physical, pixels
+        winit::dpi::LogicalSize::new(
+            ((win.inner_width().unwrap().as_f64().unwrap() - scrollbars)/2.),
+            ((win.inner_height().unwrap().as_f64().unwrap() - scrollbars)/2.),
+        )
+    };
+
     let window_builder = {
         use wasm_bindgen::JsCast;
         use winit::platform::web::WindowBuilderExtWebSys;
@@ -40,14 +54,31 @@ pub async fn scene() {
                     .dyn_into::<web_sys::HtmlCanvasElement>()
                     .unwrap(),
             ))  
-            .with_inner_size(winit::dpi::LogicalSize::new(720, 720))
+            // .with_inner_size(winit::dpi::LogicalSize::new(720, 720))
+            .with_inner_size(get_full_size())
             .with_prevent_default(true)
     };
 
     let render_window = window_builder.build(&event_loop).unwrap();
+    let winit_window = Rc::new(render_window);
+    let window = web_sys::window().unwrap();
+
+    // resize of our winit::Window whenever the browser window changes size.
+    {
+        let winit_window = winit_window.clone();
+        let closure = wasm_bindgen::closure::Closure::wrap(Box::new(move |e: web_sys::Event| {
+            log!("handling resize event: {:?}", e);
+            let size = get_full_size();
+            winit_window.set_inner_size(size)
+        }) as Box<dyn FnMut(_)>);
+        window
+            .add_event_listener_with_callback("resize", closure.as_ref().unchecked_ref())
+            .unwrap();
+        closure.forget();
+    }
     log!("Window initialized");
 
-    let mut context = initialize_context(&render_window);
+    let mut context = initialize_context(&winit_window);
     log!("Context initialized");
 
     let mut loaded_assets = load_assets().await;
@@ -59,13 +90,13 @@ pub async fn scene() {
     let lights = initialize_lights(&context);
 
     log!("Entering main loop");
-    let mut frame_input_generator = FrameInputGenerator::from_winit_window(&render_window);
+    let mut frame_input_generator = FrameInputGenerator::from_winit_window(&winit_window);
 
     event_loop.run(move |event, _, control_flow| 
         match event {
             winit::event::Event::MainEventsCleared => {
                 
-                render_window.request_redraw();
+                winit_window.request_redraw();
             }
             winit::event::Event::RedrawRequested(_) => {
                 log!("TEst");
@@ -87,7 +118,7 @@ pub async fn scene() {
     
                 context.swap_buffers().unwrap();
                 control_flow.set_poll();
-                render_window.request_redraw();
+                winit_window.request_redraw();
             }
             winit::event::Event::WindowEvent { ref event, .. } => {
                 frame_input_generator.handle_winit_window_event(event);

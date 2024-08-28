@@ -24,7 +24,7 @@
       position: relative;
       color: #ffffff;
       text-decoration: none;
-      border-bottom: 1px solid #ffffff;
+      border-bottom: 2px solid #ffffff;
       border-bottom-style: dotted;
     }
 
@@ -34,7 +34,7 @@
       left:50%;
       right: 50%;
       bottom: 0;
-      border-bottom: 1px solid #ffffff;
+      border-bottom: 2px solid #ffffff;
       transition: left .25s, right .25s;
     }
 

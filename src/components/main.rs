@@ -4,8 +4,14 @@ use crate::scene;
 
 #[component]
 fn Project(link: String, title: String, description: String) -> impl IntoView {
+    let paragraphs: Vec<String> = description
+        .chars()
+        .collect::<Vec<_>>()
+        .chunks(40)
+        .map(|chunk| chunk.iter().collect::<String>())
+        .collect();
     view! {
-        <a href="{link}" class="object-contain group relative block h-64 sm:h-80 lg:h-96 min-h-full" target="_blank">
+        <a href="{link}" class="object-contain group relative block h-64 sm:h-66 lg:h-96 min-h-full" target="_blank">
           <span class="absolute inset-0 border-2 border-dashed border-black"></span>
 
           <div
@@ -22,9 +28,11 @@ fn Project(link: String, title: String, description: String) -> impl IntoView {
             >
               <h3 class="mt-4 text-xl font-medium sm:text-2xl">{title}</h3>
 
-              <p class="mt-4 text-sm sm:text-base text-gray-900">
-                {description}
-              </p>
+              { paragraphs.iter().map(|para| view! {
+                <p class="mt-4 text-sm sm:text-base text-gray-900">
+                  {para}
+                </p>
+              }).collect::<Vec<_>>() }
 
               <p class="mt-8 font-bold sm:text-base text-gray-900">Read more</p>
             </div>
@@ -62,7 +70,7 @@ pub fn Main() -> impl IntoView {
             <span class="h-px flex-1 bg-white text-gray-100"></span>
             </span>        
 
-            <div class="min-w-full flex min-h-full">
+            <div class="min-w-full flex min-h-full items-center justify-center">
                 <section class="relative flex flex-col justify-center bg-black overflow-hidden">
                 <div class="w-full max-w-6xl mx-auto px-4 md:px-6">
                     <div class="flex flex-col justify-center divide-y divide-slate-200 [&>*]:py-16">
@@ -73,7 +81,7 @@ pub fn Main() -> impl IntoView {
                                 <p> <a class="under" href="docs/resume.pdf" target="_blank">My full CV.</a></p>
                                 <div class="relative pl-8 sm:pl-32 py-6 group">
                                     <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-slate-300 sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-indigo-600 after:border-4 after:box-content after:border-slate-50 after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 after:translate-y-1.5">
-                                        <img class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center font-semibold uppercase" src="/images/itmo.jpg" alt="a lighthouse"/>
+                                        <img class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center font-semibold uppercase" src="/images/itmo.png" alt="a lighthouse"/>
                                         <div class="text-xl font-bold text-gray-100">
                                         Completing tutorials on life
                                         </div>
@@ -114,19 +122,18 @@ pub fn Main() -> impl IntoView {
             <span class="h-px flex-1 bg-white text-gray-100"></span>
             </span>
             
-            <div class="min-w-full flex min-h-full">
+            <div class="min-w-full flex min-h-full items-center justify-center">
                 <section class="relative flex flex-col justify-center bg-black overflow-hidden">
                 
                     <p> Most of my projects are open-source on <a class="under" href="https://github.com/alexkaravaev" target="_blank">"💾 Github"</a>, but here are a couple of projects that arent available there. </p>
-                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8 mt-5.5">
-                    <div class="h-22 rounded-lg bg-gray-200">
+                    <div class="grid p-24 place-items-center gap-4 grid-flow-row-dense lg:gap-8 mt-5.5 content-center">
+                    <div class="h-22 rounded-lg bg-gray-200 min-w-full">
                         <Project
                             link="#".to_string()
                             title="Foodie AI".to_string()
-                            description="Building a calorie tracker using only photos and AI nutritionists. I was the full-stack engineer co-founder, responsible for cloud deployment, metrics, and writing all the code.
-                    This post will be more detailed in the future.".to_string()/>
+                            description="Building a calorie tracker using only photos and AI nutritionists. This post will be more detailed in the future.".to_string()/>
                     </div>
-                    <div class="h-22 rounded-lg bg-gray-200">
+                    <div class="h-22 rounded-lg bg-gray-200 min-w-full">
                         <Project
                             link="https://linkedin.com/company/ros-germany".to_string() 
                             title="Robotics meetups".to_string()
@@ -145,9 +152,9 @@ pub fn Main() -> impl IntoView {
             <span class="h-px flex-1 bg-white text-gray-100"></span>
             </span>
 
-            <div class="min-w-full flex w-full max-w-6xl mx-auto px-4 md:px-6 py-4 space-y-12 min-h-full">
+            <div class="min-w-full grid w-full max-w-6xl mx-auto px-4 md:px-6 py-4 space-y-12 min-h-full items-center justify-center">
                 <p> Thanks for great <a class="under" href="https://www.behance.net/gallery/165413157/NEOPIXEL-(free-font)?tracking_source=search_projects|typeface+free&l=33" target="_blank"> font </a> and leptos website <a class="under" href="https://github.com/khuedoan/blog/tree/master" target="_blank">template</a> </p>
-                <p> This site is made with <a class="under" href="https://leptos.dev/" target="_blank">leptos</a>. Lovely that you can make frontend apps now with Rust, god bless WASM.</p>
+                <p> This <a class="under" href="https://github.com/AlexKaravaev/blog" target="_blank">site</a> is made with <a class="under" href="https://leptos.dev/" target="_blank">leptos</a>. Lovely that you can make frontend apps now with Rust, god bless WASM.</p>
             </div>
       
         </div>

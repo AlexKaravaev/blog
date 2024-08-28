@@ -33,6 +33,7 @@ pub fn App() -> impl IntoView {
     
                 <Routes>
                     <Route path="/about" view=|| view! { <Home/> } ssr=SsrMode::Async/>
+                    <Route path="/" view=|| view! { <Home/> } ssr=SsrMode::Async/>
                     <Route path="/thoughts" view=|| view! { <Posts/> }/>
                     <Route path="/resources" view=|| view! { <Resources/> }/>
                     
