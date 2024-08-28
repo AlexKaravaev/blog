@@ -18,8 +18,8 @@ COPY --from=builder /app/target/site /app/target/site
 
 WORKDIR /app
 
-ENV LEPTOS_SITE_ADDR="0.0.0.0:3000"
+ENV LEPTOS_SITE_ADDR="https://0.0.0.0:8080"
 
-EXPOSE 3000
+EXPOSE 8080
 
 CMD ["./target/release/blog"]

@@ -25,7 +25,6 @@ pub async fn scene() {
     // let event_loop = winit::event_loop::EventLoop::new();
 
     let event_loop = winit::event_loop::EventLoop::new();
-    log!("Enter");
 
     // Window resizing logic taken from https://github.com/michaelkirk/abstreet/commit/7b99335cd5325d455140c7595bf0ef3ccdaf93e0
     let get_full_size = || {
@@ -89,7 +88,6 @@ pub async fn scene() {
     let mut penguin = initialize_model(&context, &mut loaded_assets);
     let lights = initialize_lights(&context);
 
-    log!("Entering main loop");
     let mut frame_input_generator = FrameInputGenerator::from_winit_window(&winit_window);
 
     event_loop.run(move |event, _, control_flow| 
@@ -99,7 +97,6 @@ pub async fn scene() {
                 winit_window.request_redraw();
             }
             winit::event::Event::RedrawRequested(_) => {
-                log!("TEst");
                 let mut frame_input = frame_input_generator.generate(&context);
     
                 control.handle_events(&mut camera, &mut frame_input.events);
@@ -133,11 +130,10 @@ pub async fn scene() {
                         log!("Close");
                         control_flow.set_exit();
                     }
-                    _ => {log!("{:?}", event);},
+                    _ => {},
                 }
             }
             _ => {}
-            // log!("{:?}", event);
         }
     );
 }
