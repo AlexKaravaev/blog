@@ -5,7 +5,7 @@ use crate::scene;
 #[component]
 fn Project(link: String, title: String, description: String) -> impl IntoView {
     view! {
-        <a href="{link}" class="object-contain group relative block h-64 sm:h-80 lg:h-96" target="_blank">
+        <a href="{link}" class="object-contain group relative block h-64 sm:h-80 lg:h-96 min-h-full" target="_blank">
           <span class="absolute inset-0 border-2 border-dashed border-black"></span>
 
           <div
@@ -40,8 +40,8 @@ pub fn Main() -> impl IntoView {
         scene::scene().await;
     }); 
     view! {
-        <div class="font-eurostile relative isolate px-6 pt-14 lg:px-8">
-            <div class="flex items-start gap-4 h-[50vh] visible-canvas">
+        <div class="font-eurostile relative isolate px-6 pt-14 lg:px-8 flex flex-col min-h-full">
+            <div class="min-w-full flex items-start gap-4 min-h-full visible-canvas">
                 <canvas id="myCanvas" class="visible-canvas"></canvas>
                 
                 <div>
@@ -62,7 +62,7 @@ pub fn Main() -> impl IntoView {
             <span class="h-px flex-1 bg-white text-gray-100"></span>
             </span>        
 
-            <div class="h-[50vh]">
+            <div class="min-w-full flex min-h-full">
                 <section class="relative flex flex-col justify-center bg-black overflow-hidden">
                 <div class="w-full max-w-6xl mx-auto px-4 md:px-6">
                     <div class="flex flex-col justify-center divide-y divide-slate-200 [&>*]:py-16">
@@ -114,8 +114,9 @@ pub fn Main() -> impl IntoView {
             <span class="h-px flex-1 bg-white text-gray-100"></span>
             </span>
             
-            <div class="h-[50vh]">
-                <div class="w-full max-w-6xl mx-auto px-4 md:px-6 py-4">
+            <div class="min-w-full flex min-h-full">
+                <section class="relative flex flex-col justify-center bg-black overflow-hidden">
+                
                     <p> Most of my projects are open-source on <a class="under" href="https://github.com/alexkaravaev" target="_blank">"💾 Github"</a>, but here are a couple of projects that arent available there. </p>
                     <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8 mt-5.5">
                     <div class="h-22 rounded-lg bg-gray-200">
@@ -133,7 +134,8 @@ pub fn Main() -> impl IntoView {
                         />
                     </div>
                     </div>
-                </div>
+               
+                </section>  
             </div>
 
             // https://de.linkedin.com/company/ros-germany
@@ -143,7 +145,7 @@ pub fn Main() -> impl IntoView {
             <span class="h-px flex-1 bg-white text-gray-100"></span>
             </span>
 
-            <div class="w-full max-w-6xl mx-auto px-4 md:px-6 py-4 space-y-12 ">
+            <div class="min-w-full flex w-full max-w-6xl mx-auto px-4 md:px-6 py-4 space-y-12 min-h-full">
                 <p> Thanks for great <a class="under" href="https://www.behance.net/gallery/165413157/NEOPIXEL-(free-font)?tracking_source=search_projects|typeface+free&l=33" target="_blank"> font </a> and leptos website <a class="under" href="https://github.com/khuedoan/blog/tree/master" target="_blank">template</a> </p>
                 <p> This site is made with <a class="under" href="https://leptos.dev/" target="_blank">leptos</a>. Lovely that you can make frontend apps now with Rust, god bless WASM.</p>
             </div>
