@@ -1,17 +1,12 @@
 
 use leptos::*;
+#[cfg(target_arch = "wasm32")]
 use crate::scene;
 
 #[component]
 fn Project(link: String, title: String, description: String) -> impl IntoView {
-    let paragraphs: Vec<String> = description
-        .chars()
-        .collect::<Vec<_>>()
-        .chunks(40)
-        .map(|chunk| chunk.iter().collect::<String>())
-        .collect();
     view! {
-        <a href="{link}" class="object-contain group relative block h-64 sm:h-66 lg:h-96 min-h-full" target="_blank">
+        <a href=format!("{link}") class="object-contain group relative block h-64 sm:h-66 lg:h-96 min-h-full" target="_blank">
           <span class="absolute inset-0 border-2 border-dashed border-black"></span>
 
           <div
@@ -28,11 +23,9 @@ fn Project(link: String, title: String, description: String) -> impl IntoView {
             >
               <h3 class="mt-4 text-xl font-medium sm:text-2xl">{title}</h3>
 
-              { paragraphs.iter().map(|para| view! {
-                <p class="mt-4 text-sm sm:text-base text-gray-900">
-                  {para}
+              <p class="mt-4 text-sm sm:text-xs text-gray-900 break-words">
+                  {description}
                 </p>
-              }).collect::<Vec<_>>() }
 
               <p class="mt-8 font-bold sm:text-base text-gray-900">Read more</p>
             </div>
@@ -153,7 +146,7 @@ pub fn Main() -> impl IntoView {
             </span>
 
             <div class="min-w-full grid w-full max-w-6xl mx-auto px-4 md:px-6 py-4 space-y-12 min-h-full items-center justify-center">
-                <p> Thanks for great <a class="under" href="https://www.behance.net/gallery/165413157/NEOPIXEL-(free-font)?tracking_source=search_projects|typeface+free&l=33" target="_blank"> font </a> and leptos website <a class="under" href="https://github.com/khuedoan/blog/tree/master" target="_blank">template</a> </p>
+                <p> Thanks for great <a class="under" href="https://departuremono.com" target="_blank"> font </a> and leptos website <a class="under" href="https://github.com/khuedoan/blog/tree/master" target="_blank">template</a> </p>
                 <p> This <a class="under" href="https://github.com/AlexKaravaev/blog" target="_blank">site</a> is made with <a class="under" href="https://leptos.dev/" target="_blank">leptos</a>. Lovely that you can make frontend apps now with Rust, god bless WASM.</p>
             </div>
       

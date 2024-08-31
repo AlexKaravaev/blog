@@ -5,7 +5,7 @@ pub fn Header() -> impl IntoView {
     let nav_items = [("about", "/about"), ("thoughts", "/thoughts"), ("resources", "/resources")];
 
     view! {
-        <header class="relative z-50 bg-black" >
+        <header class="relative z-50 bg-black sticky top-0" >
 
             <nav
                 class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"

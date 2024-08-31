@@ -18,7 +18,7 @@ COPY --from=builder /app/target/site /app/target/site
 
 WORKDIR /app
 
-ENV LEPTOS_SITE_ADDR="https://0.0.0.0:8080"
+ENV LEPTOS_SITE_ADDR="0.0.0.0:8080"
 
 EXPOSE 8080
 

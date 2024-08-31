@@ -1,8 +1,11 @@
-use leptos::logging::log;
-use three_d::*;
-use wasm_bindgen::JsCast;
-use std::panic;
-use std::rc::Rc;
+#[cfg(target_arch = "wasm32")]
+use {
+    std::panic,
+    std::rc::Rc,
+    three_d::*,
+    wasm_bindgen::JsCast,
+    leptos::logging::log,
+};
 
 #[cfg(target_arch = "wasm32")]
 pub async fn scene() {
@@ -34,8 +37,8 @@ pub async fn scene() {
         // `inner_width` corresponds to the browser's `self.innerWidth` function, which are in
         // Logical, not Physical, pixels
         winit::dpi::LogicalSize::new(
-            ((win.inner_width().unwrap().as_f64().unwrap() - scrollbars)/2.),
-            ((win.inner_height().unwrap().as_f64().unwrap() - scrollbars)/2.),
+            (win.inner_width().unwrap().as_f64().unwrap() - scrollbars)/2.,
+            (win.inner_height().unwrap().as_f64().unwrap() - scrollbars)/2.,
         )
     };
 
@@ -77,7 +80,7 @@ pub async fn scene() {
     }
     log!("Window initialized");
 
-    let mut context = initialize_context(&winit_window);
+    let context = initialize_context(&winit_window);
     log!("Context initialized");
 
     let mut loaded_assets = load_assets().await;

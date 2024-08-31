@@ -11,12 +11,16 @@ use crate::pages::posts::*;
 use crate::components::footer::*;
 use crate::components::header::*;
 
+// Used for cache busting
+pub const LEPTOS_OUTPUT_NAME: &str = env!("LEPTOS_OUTPUT_NAME");
+
 #[component]
 pub fn App() -> impl IntoView {
     provide_meta_context();
 
     view! {
-        <Stylesheet id="leptos" href="/pkg/blog.css"/>
+        // <Stylesheet id="leptos" href="/pkg/blog.css"/>
+        <Stylesheet id="leptos" href=format!("/pkg/{LEPTOS_OUTPUT_NAME}.css")/>
         <Title text="Alex Karavaev"/>
 
         <Router fallback=|| {

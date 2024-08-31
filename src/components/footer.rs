@@ -23,6 +23,11 @@ fn SocialIcons() -> impl IntoView {
             url: "https://github.com/AlexKaravaev",
             icon: icondata::AiGithubFilled,
         },
+        Social {
+            name: "X",
+            url: "https://x.com/alex__karavaev",
+            icon: icondata::BsTwitterX,
+        },
     ];
 
     view! {
