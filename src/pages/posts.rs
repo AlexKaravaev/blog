@@ -1,9 +1,11 @@
 use leptos::*;
+use crate::components::analytics::*;
 
 #[component]
 pub fn Posts() -> impl IntoView {
     view! {
-
+        <GoogleAnalytics/>
+        
         <div class="text-center">
             <h1 class="mt-2 py-20 text-3xl font-medium tracking-tight text-gray-100 sm:text-4xl">
                 "thoughts"

@@ -1,7 +1,6 @@
 use leptos::*;
-
-
 use std::collections::HashMap;
+use crate::components::analytics::*;
 
 // https://iamkate.com/code/tree-views/
 #[component]
@@ -126,7 +125,7 @@ pub fn FunList() -> impl IntoView {
 #[component]
 pub fn Resources() -> impl IntoView {
   view!{
-   
+    <GoogleAnalytics/>
     <div class="w-full max-w-6xl mx-auto px-4 md:px-6 py-4">
       <p class="mt-0.5 text-gray-100">
         I love the concept of endless lists of lists. This abstraction can encapsulate almost everything in the world.
