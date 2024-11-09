@@ -99,8 +99,16 @@ pub fn Main() -> impl IntoView {
                                     </div>
                                     <div class="text-gray-100">Focused on robot simulation, CI/CD, and improving developer experience (DevEx).</div>
                                 </div>      
-                            </div>
-                            
+
+                                <div class="relative pl-8 sm:pl-32 py-6 group">
+                                    <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-slate-300 sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-indigo-600 after:border-4 after:box-content after:border-slate-50 after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 after:translate-y-1.5">
+                                        <img class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center font-semibold uppercase" src="/images/tfh.png" alt="a lighthouse"/>
+                                        <div class="text-xl font-bold text-gray-100">Worldcoin/Tools For Humanity</div>
+                                    </div>
+                                    <div class="text-gray-100">Working on orb software.</div>
+                                </div>      
+                        </div>
+
                         </div>
             
                     </div>
