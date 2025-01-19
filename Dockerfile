@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y pkg-config openssl libssl-dev
 
-RUN cargo install --git https://github.com/leptos-rs/cargo-leptos cargo-leptos
+RUN cargo install --git https://github.com/leptos-rs/cargo-leptos --tag v0.2.20 cargo-leptos
 
 COPY . .
 

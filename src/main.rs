@@ -4,12 +4,12 @@ async fn main() {
 
     use axum::Router;
     use blog::app::*;
-    
+
     use blog::file_serve::file_and_error_handler;
     use leptos::*;
     use leptos_axum::{generate_route_list, LeptosRoutes};
-    
-    
+
+
     // Setting get_configuration(None) means we'll be using cargo-leptos's env values
     // For deployment these variables are:
     // <https://github.com/leptos-rs/start-axum#executing-a-server-on-a-remote-machine-without-the-toolchain>

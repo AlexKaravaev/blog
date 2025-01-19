@@ -7,6 +7,7 @@ use crate::error_template::{AppError, ErrorTemplate};
 use crate::pages::home::*;
 use crate::pages::resources::*;
 use crate::pages::posts::*;
+use crate::pages::trinkets::*;
 
 use crate::components::footer::*;
 use crate::components::header::*;
@@ -34,13 +35,14 @@ pub fn App() -> impl IntoView {
             <Link rel="preload" href="https://alexkaravaev.ck.page/5a87217522/index.js" as_="script"/>
             <Link rel="preload" href="https://substackapi.com/widget.js" as_="script"/>
             <Link rel="preload" href="https://substackapi.com/embeds/feed.js" as_="script"/>
-    
+
                 <Routes>
                     <Route path="/about" view=|| view! { <Home/> } ssr=SsrMode::Async/>
                     <Route path="/" view=|| view! { <Home/> } ssr=SsrMode::Async/>
                     <Route path="/thoughts" view=|| view! { <Posts/> }/>
                     <Route path="/resources" view=|| view! { <Resources/> }/>
-                    
+                    <Route path="/trinkets" view=|| view! { <Trinkets/> } ssr=SsrMode::Async/>
+
                 </Routes>
             </main>
             <Footer/>
