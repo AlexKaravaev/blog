@@ -39,24 +39,48 @@ pub fn Main() -> impl IntoView {
     #[cfg(target_arch = "wasm32")]
     wasm_bindgen_futures::spawn_local(async move {
         scene::scene().await;
-    }); 
+    });
     view! {
-        <div class="font-eurostile relative isolate px-6 pt-14 lg:px-8 flex flex-col min-h-full">
-            <div class="min-w-full flex items-start gap-4 min-h-full visible-canvas">
-                <canvas id="myCanvas" class="visible-canvas"></canvas>
-                
-                <div>
-                <h3 class="text-lg/tight font-medium text-gray-100">Alex Karavaev</h3>
-                <p class="mt-0.5 text-gray-100">
-                
-                </p>
-                <p class="mt-0.5 text-gray-100">
-                    Robotics engineer, human, I love when my work not only moves pixels around, but also atoms. 
-                    You can book 15 mins with me <a class="under" href="https://calendly.com/alexkaravev/coffee-chat" target="_blank">here</a> to chat, if there is agenda set.
-                </p>
+        <div class="font-eurostile relative isolate px-6 pt-10 lg:px-8 flex flex-col min-h-full">
+            <section class="hero-intro">
+                <div class="hero-stage visible-canvas">
+                    <canvas id="myCanvas" class="visible-canvas hero-canvas"></canvas>
                 </div>
 
-            </div>
+                <div class="hero-copy">
+                    <div class="hero-copy-top">
+                        <div>
+                            <p class="hero-kicker">Robotics engineer</p>
+                            <h1 class="mt-3 text-5xl font-semibold text-gray-100 sm:text-7xl">
+                                Alex Karavaev
+                            </h1>
+                            <p class="mt-6 max-w-2xl text-gray-100">
+                                Robotics engineer, human. I love when my work not only moves pixels around,
+                                but also atoms.
+                            </p>
+                            <div class="mt-8 flex flex-wrap items-center gap-3">
+                                <a
+                                    class="hero-action"
+                                    href="https://calendly.com/alexkaravev/coffee-chat"
+                                    target="_blank"
+                                >
+                                    Book 15 mins
+                                </a>
+                                <span class="text-sm text-gray-400">if there is an agenda set</span>
+                            </div>
+                        </div>
+
+                        <div class="hero-photo-frame">
+                            <img
+                                class="hero-portrait"
+                                src="/images/alex-ascii-photo.png"
+                                alt="Black-and-white halftone portrait of Alex Karavaev"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <span class="flex items-center text-gray-100">
             <span class="h-px flex-1 bg-white text-gray-100"></span>
             <span class="shrink-0 px-6 text-gray-100">Life timeline</span>
@@ -74,7 +98,7 @@ pub fn Main() -> impl IntoView {
                                 <p> <a class="under" href="docs/resume.pdf" target="_blank">My full CV.</a></p>
                                 <div class="relative pl-8 sm:pl-32 py-6 group">
                                     <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-slate-300 sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-indigo-600 after:border-4 after:box-content after:border-slate-50 after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 after:translate-y-1.5">
-                                        <img class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center font-semibold uppercase" src="/images/itmo.png" alt="a lighthouse"/>
+                                        <img class="timeline-logo sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center font-semibold uppercase" style="--logo-delay: 0s" src="/images/itmo.png" alt="a lighthouse"/>
                                         <div class="text-xl font-bold text-gray-100">
                                         Completing tutorials on life
                                         </div>
@@ -86,7 +110,7 @@ pub fn Main() -> impl IntoView {
                                 
                                 <div class="relative pl-8 sm:pl-32 py-6 group">
                                     <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-slate-300 sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-indigo-600 after:border-4 after:box-content after:border-slate-50 after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 after:translate-y-1.5">
-                                        <img class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center font-semibold uppercase" src="/images/jb.png" alt="a lighthouse"/>
+                                        <img class="timeline-logo sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center font-semibold uppercase" style="--logo-delay: -1.5s" src="/images/jb.png" alt="a lighthouse"/>
                                         <div class="text-xl font-bold text-gray-100">JetBrains</div>
                                     </div>
                                     <div class="text-gray-100">I was the founding engineer at the Museum of the Future, where I developed exhibitions featuring robotic manipulators and small self-driving cars.</div>
@@ -94,7 +118,7 @@ pub fn Main() -> impl IntoView {
                                 
                                 <div class="relative pl-8 sm:pl-32 py-6 group">
                                     <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-slate-300 sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-indigo-600 after:border-4 after:box-content after:border-slate-50 after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 after:translate-y-1.5">
-                                        <img class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center font-semibold uppercase" src="/images/mag.png" alt="a lighthouse"/>
+                                        <img class="timeline-logo sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center font-semibold uppercase" style="--logo-delay: -3s; --logo-pop-bg: #050505; --logo-pop-border: #ffffff" src="/images/mag.png" alt="a lighthouse"/>
                                         <div class="text-xl font-bold text-gray-100">Magazino</div>
                                     </div>
                                     <div class="text-gray-100">Focused on robot simulation, CI/CD, and improving developer experience (DevEx).</div>
@@ -102,10 +126,10 @@ pub fn Main() -> impl IntoView {
 
                                 <div class="relative pl-8 sm:pl-32 py-6 group">
                                     <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-slate-300 sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-indigo-600 after:border-4 after:box-content after:border-slate-50 after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 after:translate-y-1.5">
-                                        <img class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center font-semibold uppercase" src="/images/tfh.png" alt="a lighthouse"/>
+                                        <img class="timeline-logo sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center font-semibold uppercase" style="--logo-delay: -4.5s; --logo-pop-bg: #050505; --logo-pop-border: #ffffff" src="/images/tfh.png" alt="a lighthouse"/>
                                         <div class="text-xl font-bold text-gray-100">Worldcoin/Tools For Humanity</div>
                                     </div>
-                                    <div class="text-gray-100">Working on orb software.</div>
+                                    <div class="text-gray-100">Founded by Alex Blania and Sam Altman, World is a new standard of trust for the internet: private proof of human uniqueness, powerful financial infrastructure, and the human-first experiences they enable. Engineering management, scaling Orb production, and tirelessly working on a privacy-preserving system to prove you are a unique human.</div>
                                 </div>      
                         </div>
 

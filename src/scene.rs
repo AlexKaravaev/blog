@@ -31,14 +31,14 @@ pub async fn scene() {
 
     // Window resizing logic taken from https://github.com/michaelkirk/abstreet/commit/7b99335cd5325d455140c7595bf0ef3ccdaf93e0
     let get_full_size = || {
-        // TODO Not sure how to get scrollbar dims
-        let scrollbars = 30.0;
-        let win = web_sys::window().unwrap();
-        // `inner_width` corresponds to the browser's `self.innerWidth` function, which are in
-        // Logical, not Physical, pixels
+        let document = web_sys::window().unwrap().document().unwrap();
+        let canvas = document.get_element_by_id("myCanvas").unwrap();
+        let host = canvas.parent_element().unwrap_or_else(|| canvas.clone());
+        let bounds = host.get_bounding_client_rect();
+
         winit::dpi::LogicalSize::new(
-            (win.inner_width().unwrap().as_f64().unwrap() - scrollbars)/2.,
-            (win.inner_height().unwrap().as_f64().unwrap() - scrollbars)/2.,
+            bounds.width().max(1.0),
+            bounds.height().max(1.0),
         )
     };
 
